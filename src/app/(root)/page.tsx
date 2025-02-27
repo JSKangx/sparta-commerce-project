@@ -1,8 +1,15 @@
-import { getNewProducts } from "@/services/server-action";
-import Banner from "@/components/Banner";
+// import { getNewProducts } from "@/services/server-action";
+// import Banner from "@/components/Banner";
 import NewProductList from "@/components/NewProductList";
+import dynamic from "next/dynamic";
+
+const Banner = dynamic(() => import("@/components/Banner"), {
+  ssr: false,
+});
 
 const HomePage = async () => {
+  // 사용할 때 기다려서 import 하는 것
+  const { getNewProducts } = await import("@/services/server-action");
   const { data } = await getNewProducts();
 
   return (
